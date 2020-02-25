@@ -1,11 +1,17 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Database
-    ( saveWordData
-    , clearDatabase
-    ) where
 
-import Types
-import Database.SQLite.Simple
+module Database
+  ( saveWordData
+  , clearDatabase
+  , querySynonyms
+  ) where
+
+import           Database.SQLite.Simple
+import           Types
+
+querySynonyms :: Connection -> String -> IO [Synonym]
+querySynonyms conn word =
+  queryNamed conn "SELECT s.* FROM synonyms s INNER JOIN words w ON w.id = s.wordId WHERE word = :word" [":word" := word]
 
 saveWordData :: Connection -> WordData -> IO ()
 saveWordData conn (WordData word synonyms) = do

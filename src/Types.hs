@@ -5,7 +5,7 @@ module Types
     ( WordData(WordData)
     , Definition(..)
     , PartOfSpeech(Noun, Adjective, Verb, Adverb)
-    , Synonym(Synonym)
+    , Synonym(Synonym, synonym)
     ) where
 
 import qualified Data.List                      as L
@@ -71,5 +71,8 @@ data Synonym =
         }
     deriving (Show)
 
+instance FromRow Synonym where
+  fromRow = Synonym <$> field <*> field
+
 instance ToRow Synonym where
-    toRow (Synonym wordRef synonym) = toRow (wordRef, synonym)
+  toRow (Synonym wordRef synonym) = toRow (wordRef, synonym)

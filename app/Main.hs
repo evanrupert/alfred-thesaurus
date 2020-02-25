@@ -1,16 +1,15 @@
 module Main where
 
-import Lib
-import Control.Applicative
-
-data Word = Word { id :: Int
-                 , word :: String
-                 }
-
+import           Control.Applicative
+import           Database
+import           Database.SQLite.Simple
+import           System.Environment
+import           Types
 
 main :: IO ()
-main = greet "Evan"
-
-
-greet :: String -> IO ()
-greet name = putStrLn ("Hello, " ++ name ++ "!")
+main = do
+  args <- getArgs
+  conn <- open "thesaurus.db"
+  synonyms <- querySynonyms conn (head args)
+  mapM_ (putStrLn . synonym) synonyms
+  close conn

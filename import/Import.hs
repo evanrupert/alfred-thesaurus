@@ -7,9 +7,9 @@ import           Database
 import           Database.SQLite.Simple
 import           Database.SQLite.Simple.FromRow
 import           Parse
+import           System.Environment
 import           System.IO
 import           Types
-import System.Environment
 
 main :: IO ()
 main = do

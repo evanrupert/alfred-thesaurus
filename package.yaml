@@ -20,8 +20,9 @@ extra-source-files:
 description:         Please see the README on GitHub at <https://github.com/githubuser/thesaurus#readme>
 
 dependencies:
-- base >= 4.7 && < 5
-# - sqlite-simple >= 4.15 && < 5
+- base >= 4.7 && < 4.13
+- sqlite-simple
+- text
 
 library:
   source-dirs: src
@@ -34,6 +35,16 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    dependencies:
+    - thesaurus
+  thesaurus-import:
+    main:                 Import.hs
+    source-dirs:          import
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -main-is Import
     dependencies:
     - thesaurus
 

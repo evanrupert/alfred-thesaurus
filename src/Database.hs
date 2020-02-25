@@ -1,11 +1,21 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Database
-    () where
+    ( saveWordData
+    , clearDatabase
+    ) where
 
+import Types
+import Database.SQLite.Simple
 
--- import Types
--- import Database.SQLite.Simple
--- 
--- 
--- insertWord :: Connection -> ThesWord -> IO ()
--- insertWord conn word = do
+saveWordData :: Connection -> WordData -> IO ()
+saveWordData conn (WordData word synonyms) = do
+  execute conn "INSERT INTO words (id, word, partofspeech, defseq) VALUES (?, ?, ?, ?)" word
+  mapM_ (saveSynonym conn) synonyms
 
+saveSynonym :: Connection -> Synonym -> IO ()
+saveSynonym conn = execute conn "INSERT INTO synonyms (wordId, synonym) VALUES (?, ?)"
+
+clearDatabase :: Connection -> IO ()
+clearDatabase conn = do
+  execute_ conn "DELETE FROM words"
+  execute_ conn "DELETE FROM synonyms"

@@ -5,3 +5,8 @@ thesaurus.cabal
 dist-newstyle
 *.dat
 *.db
+
+# Editors
+
+.idea
+*.iml

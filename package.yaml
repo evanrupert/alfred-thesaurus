@@ -23,6 +23,8 @@ dependencies:
 - base >= 4.7 && < 4.13
 - sqlite-simple
 - text
+- raw-strings-qq
+- neat-interpolation
 
 library:
   source-dirs: src

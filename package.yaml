@@ -28,7 +28,7 @@ library:
   source-dirs: src
 
 executables:
-  thesaurus-exe:
+  thesaurus:
     main:                Main.hs
     source-dirs:         app
     ghc-options:

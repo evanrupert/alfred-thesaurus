@@ -16,7 +16,8 @@ import           Types
 main :: IO ()
 main = do
   args <- getArgs
-  conn <- open "/Users/evan/Programs/thesaurus/thesaurus.db"
-  synonyms <- querySynonyms conn (head args)
-  TIO.putStrLn . serializeResult $ synonyms
+  databasePath <- getEnv "THESAURUS_DB_PATH"
+  conn <- open databasePath
+  queryResult <- querySynonyms conn (head args)
+  TIO.putStrLn . serializeResult $ queryResult
   close conn

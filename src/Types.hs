@@ -6,6 +6,7 @@ module Types
     , Definition(..)
     , PartOfSpeech(Noun, Adjective, Verb, Adverb)
     , Synonym(Synonym, synonym)
+    , QueryResult(QueryResult)
     ) where
 
 import qualified Data.List                      as L
@@ -76,3 +77,5 @@ instance FromRow Synonym where
 
 instance ToRow Synonym where
   toRow (Synonym wordRef synonym) = toRow (wordRef, synonym)
+
+data QueryResult = QueryResult String [Synonym]
